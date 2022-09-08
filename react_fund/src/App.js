@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import './App.css';
-import ClassCounter from './components/ClassCounter';
+import PostItem from './components/PostItem';
+import './styles/App.css';
 
 
 function App() {
@@ -8,9 +8,10 @@ function App() {
   const [value, setValue] = useState('input text')
 
   return (
-    <div  className='App'>
-      {/* <Counter/> */}
-      <ClassCounter/>
+    <div className='App'>
+      <PostItem/>
+      <PostItem/>
+      <PostItem/>
     </div>
   );
 }
