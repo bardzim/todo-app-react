@@ -33,12 +33,12 @@ const addNewPost = (e) => {
           type='text' 
           placeholder='Post name'
           />
-          <input ref={bodyInputRef} type="text"/>
-{/*           <MyInput
-          onChange={bodyInputRef}
+          {/*No Managable Component*/}
+         <MyInput
+          ref={bodyInputRef}
           type='text' 
           placeholder='Post description'
-          /> */}
+          />
           <MyButton onClick={addNewPost}>create post</MyButton>
         </div>
       </form>
