@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import PostList from './components/PostList';
 import MyButton from './components/UI/button/MyButton';
 import MyInput from './components/UI/input/MyInput';
@@ -14,10 +14,12 @@ const [posts, setPosts] = useState([
 ])
 
 const [title, setTitle] = useState('');
+const bodyInputRef = useRef();
 
 const addNewPost = (e) => {
   e.preventDefault()
   console.log(title)
+  console.log(bodyInputRef.current.value)
 }
 
   return (
@@ -27,11 +29,16 @@ const addNewPost = (e) => {
           {/*Managable Component*/}
           <MyInput 
           value={title}
-          onChange= {e => setTitle(e.target.value)}
+          onChange={e => setTitle(e.target.value)}
           type='text' 
           placeholder='Post name'
           />
-          <MyInput type='text' placeholder='Post description'/>
+          <input ref={bodyInputRef} type="text"/>
+{/*           <MyInput
+          onChange={bodyInputRef}
+          type='text' 
+          placeholder='Post description'
+          /> */}
           <MyButton onClick={addNewPost}>create post</MyButton>
         </div>
       </form>
