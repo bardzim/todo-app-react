@@ -30,12 +30,11 @@ const removePost = (post) => {
       <PostForm 
       create={createPost}
       />
-
-      <PostList
-      remove={removePost}
-      posts={posts}
-      title={'Post Lists'} 
+      {posts.length !== 0 
+      ? <PostList remove={removePost} posts={posts}  title={'Post Lists'} 
       />
+      : <h1 style={{textAlign: 'center'}}>There is no Posts</h1>
+      }
     </div>
   );
 }
