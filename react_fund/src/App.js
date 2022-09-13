@@ -1,48 +1,41 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import PostList from './components/PostList';
-import MyButton from './components/UI/button/MyButton';
-import MyInput from './components/UI/input/MyInput';
+import PostForm from './components/PostForm.jsx';
 import './styles/App.css';
 
 
 function App() {
 
 const [posts, setPosts] = useState([
-  {id: 1, title: '1. JavaScript', body: 'Description'},
-  {id: 2, title: '2. JavaScript', body: 'Description'},
-  {id: 3, title: '3. JavaScript', body: 'Description'}
+  {id: 1, title: 'JavaScript', body: 'Description'},
+  {id: 2, title: 'JavaScript', body: 'Description'},
+  {id: 3, title: 'JavaScript', body: 'Description'},
 ])
 
-const [title, setTitle] = useState('');
-const bodyInputRef = useRef();
+/* const [title, setTitle] = useState('');
+const [subTitle, setSubTitle] = useState(''); */
 
-const addNewPost = (e) => {
-  e.preventDefault()
-  console.log(title)
-  console.log(bodyInputRef.current.value)
+const createPost = (newPost) => {
+  setPosts([...posts, newPost])
+}
+
+//get Post From Child Component
+
+const removePost = (post) => {
+  setPosts(posts.filter(p => p.id !== post.id))
 }
 
   return (
     <div className='App'>
-      <form>
-        <div>
-          {/*Managable Component*/}
-          <MyInput 
-          value={title}
-          onChange={e => setTitle(e.target.value)}
-          type='text' 
-          placeholder='Post name'
-          />
-          {/*No Managable Component*/}
-         <MyInput
-          ref={bodyInputRef}
-          type='text' 
-          placeholder='Post description'
-          />
-          <MyButton onClick={addNewPost}>create post</MyButton>
-        </div>
-      </form>
-      <PostList posts={posts} title='Post List 1'/>
+      <PostForm 
+      create={createPost}
+      />
+
+      <PostList
+      remove={removePost}
+      posts={posts}
+      title={'Post Lists'} 
+      />
     </div>
   );
 }
