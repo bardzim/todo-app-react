@@ -16,4 +16,4 @@ function MySelect({options, defaultValue, value, onChange}) {
   )
 }
 
-export default MySelect
+export default MySelect;
