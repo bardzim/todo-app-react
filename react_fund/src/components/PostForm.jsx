@@ -21,7 +21,7 @@ const addNewPost = e => {
       {/*Managable Component*/}
         <MyInput
             value={post.title}
-            onChange={e => setPost({...post, title: e.target.value})}
+            onChange={e => setPost({...post, title: e.target.value.toLowerCase()})}
             type="text"
             placeholder="Post name"
         />
@@ -29,7 +29,7 @@ const addNewPost = e => {
          <MyInput
             type="text"
             value={post.body}
-            onChange = {e => setPost({...post, body: e.target.value})}
+            onChange = {e => setPost({...post, body: e.target.value.toLowerCase()})}
             placeholder="Post Description"
         />
         <MyButton onClick={addNewPost}>Create New Post</MyButton>
