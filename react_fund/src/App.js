@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PostList from './components/PostList';
 import PostForm from './components/PostForm.jsx';
 import PostFilter from './components/PostFilter';
@@ -22,6 +22,10 @@ const sortedAndSearchedPosts = usePosts(posts, filter.sort, filter.query)
 /* const [title, setTitle] = useState('');
 const [subTitle, setSubTitle] = useState(''); */
 
+//this useEffect will work once because array don't have any deps
+useEffect(()=> {
+  fetchPosts();
+},[])
 
 const createPost = (newPost) => {
   setPosts([...posts, newPost])
