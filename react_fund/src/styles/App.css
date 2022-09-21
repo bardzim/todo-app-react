@@ -41,3 +41,18 @@
     transition: transform 700ms ease-in;
   }
   
+  .page__wrapper {
+      margin-top: 30px;
+      display: flex;
+  }
+
+  .page {
+    padding: 10px;
+    border: 1px solid crimson;
+    cursor: pointer;
+  }
+
+  .page__current {
+    border: 3px solid orange;
+    font-weight: bold;
+  }
