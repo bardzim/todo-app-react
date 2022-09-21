@@ -1,37 +1,37 @@
 import React from 'react'
 import PostItem from './PostItem'
-import { CSSTransition,TransitionGroup } from 'react-transition-group';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
-function PostList({posts, title, remove}) {
+function PostList({ posts, title, remove }) {
 
-if(!posts.length) {
-  return(
-    <h1 style={{textAlign: 'center'}}>
-      There is no Posts
-    </h1>
-  )
-}
+  if (!posts.length) {
+    return (
+      <h1 style={{ textAlign: 'center' }}>
+        There is no Posts
+      </h1>
+    )
+  }
 
   return (
     <div>
-      <h1 style={{textAlign: 'center'}}>
+      <h1 style={{ textAlign: 'center' }}>
         {title}
       </h1>
       <TransitionGroup>
-                {posts.map((post, index) =>
-                  <CSSTransition
-                    key={post.id}
-                    timeout={500}
-                    classNames="post"
-                          >
-                        <PostItem
-                        remove={remove} 
-                        number={index + 1}
-                        title={post.title} 
-                        post={post} 
-                        />
-                  </CSSTransition>
-                    )}      
+        {posts.map((post, index) =>
+          <CSSTransition
+            key={post.id}
+            timeout={500}
+            classNames="post"
+          >
+            <PostItem
+              remove={remove}
+              number={index + 1}
+              title={post.title}
+              post={post}
+            />
+          </CSSTransition>
+        )}
       </TransitionGroup>
     </div>
   )
