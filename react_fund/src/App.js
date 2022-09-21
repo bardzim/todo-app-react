@@ -39,7 +39,7 @@ const [subTitle, setSubTitle] = useState(''); */
 //this useEffect will work once because array don't have any deps
 useEffect(()=> {
   fetchPosts();
-},[])
+},[page])
 
 const createPost = (newPost) => {
   setPosts([...posts, newPost])
@@ -53,7 +53,6 @@ const removePost = (post) => {
 
 const changePage = (page) => {
   setPage(page)
-  fetchPosts();
 }
 
   return (
