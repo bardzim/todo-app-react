@@ -1,10 +1,17 @@
 import React from 'react'
+import { useContext } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom'
+import { AuthContext } from '../context';
 import { privateRoutes, publicRoutes } from '../router'
+import Loader from './UI/Loader/Loader';
 
 function AppRouter() {
+    const {isAuth, isLoading} = useContext(AuthContext);
+    console.log(isAuth)
 
-    const isAuth = true;
+    if(isLoading) {
+        return isAuth
+    }
 
     return (
         isAuth ? 
@@ -14,7 +21,8 @@ function AppRouter() {
                 key={route.key} 
                 component={route.component} 
                 path={route.path} 
-                exact={route.exact}/>
+                exact={route.exact}
+                />
             )}
             <Redirect to="/posts/" />
         </Switch>
