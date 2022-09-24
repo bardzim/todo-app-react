@@ -11,6 +11,10 @@ import {useFetching} from '../../../hooks/useFetching'
 import MyButton from '../../UI/button/MyButton'
 import PostForm from '../../PostForm'
 import '../../../styles/App.css';
+import { useRef } from 'react';
+import { useObserver } from '../../../hooks/useObserver';
+import MySelect from '../select/MySelect';
+
 
 
 
@@ -23,12 +27,13 @@ function Posts() {
   const [limit, setLimit] = useState(10)
   const [page, setPage] = useState(1)
   const sortedAndSearchedPosts = usePosts(posts, filter.sort, filter.query)
-
+  const lastElement = useRef();
+  console.log(lastElement)
 
 
   const [fetchPosts, isLoading, postError] = useFetching(async (limit, page) => {
     const response = await PostService.getAll(limit, page);
-    setPosts(response.data)
+    setPosts([...posts, ...response.data])
     const totalCount = response.headers['x-total-count']
     setTotalPages(getPageCount(totalCount, limit))
   })
@@ -36,10 +41,14 @@ function Posts() {
   /* const [title, setTitle] = useState('');
   const [subTitle, setSubTitle] = useState(''); */
 
+useObserver(lastElement, page < totalPages, isLoading, () => {
+  setPage(page + 1)
+})
+
   //this useEffect will work once because array don't have any deps
   useEffect(() => {
     fetchPosts(limit, page);
-  }, [])
+  }, [page, limit])
 
   const createPost = (newPost) => {
     setPosts([...posts, newPost])
@@ -59,11 +68,6 @@ function Posts() {
   return (
     <div className='App'>
       <MyButton
-        onClick={changePage}
-      >
-        GET POSTS
-      </MyButton>
-      <MyButton
         style={{ marginTop: 30 }}
         onClick={() => setModal(true)}
       >
@@ -80,11 +84,22 @@ function Posts() {
         filter={filter}
         setFilter={setFilter}
       />
+      <MySelect
+        value={limit}
+        onChange={value => {setLimit(value)}}
+        defaultValue="item limit"
+        options={[
+          {value: 5, name: '5'},
+          {value: 10, name: '10'},
+          {value: 25, name: '25'},
+          {value: -1, name: 'all Posts'}
+        ]}
+      />
       {postError &&
         <h1>Error ${postError}</h1>
       }
       <PostList remove={removePost} posts={sortedAndSearchedPosts} title="JavaScript Posts" />
-      <div style={{ height: 20, background: 'red' }} />
+      <div ref={lastElement} style={{ height: 20, background: 'red' }} />
       {isLoading &&
         <div style={{ display: 'flex', justifyContent: 'center', marginTop: 50 }}><Loader /></div>
       }
